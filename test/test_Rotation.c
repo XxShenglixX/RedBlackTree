@@ -1,6 +1,6 @@
 #include "unity.h"
 #include "Rotation.h"
-
+#include <stdio.h>
 Node node1,node5,node10,node15;
 
 void setNode(Node *target,Node *left,Node *right,char colour)
@@ -56,4 +56,43 @@ void test_rightRotate_3_nodes()
     TEST_ASSERT_EQUAL_PTR(node5.left,&node1);
     TEST_ASSERT_EQUAL_PTR(node5.right,&node10);
     TEST_ASSERT_EQUAL_PTR(root,&node5);
+}
+
+void changeRootByVal(Node *node,Node *newNode)
+{
+    node = newNode ;
+    printf("changeRootByVla : node =%p\n",node);
+
+}
+
+
+void changeRootByRef(Node **nodePtr,Node *newNode)
+{
+    *nodePtr = newNode ;
+    printf("changeRootByVal : node =%p\n",*nodePtr);
+
+}
+
+void test_changeRootByVal()
+{
+    Node *root ;
+    root = &node10 ;
+    
+    printf("test changeRootByVal()\n");
+    printf("root is node %d with address %x\n",root->data,root);
+    changeRootByVal(root,&node5);
+    printf("root is node %d with address %x\n",root->data,root);
+
+}
+
+void test_changeRootByRef()
+{
+    Node *root ;
+    root = &node10 ;
+    
+    printf("test changeRootByRef()\n");
+    printf("root is node %d with address %x\n",root->data,root);
+    changeRootByVal(&root,&node5);
+    printf("root is node %d with address %x\n",root->data,root);
+
 }

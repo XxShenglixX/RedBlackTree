@@ -1,22 +1,8 @@
 #include "unity.h"
 #include "Rotation.h"
+#include "InitNode.h"
 #include <stdio.h>
 Node node1,node5,node6,node7,node8,node10,node11,node12,node13,node15,node20;
-
-void setNode(Node *target,Node *left,Node *right,char colour)
-{
-    target->left = left;
-    target->right = right ;
-    target->colour = colour ;
-}
-
-void resetNode(Node *target,int data)
-{
-    target->left = NULL;
-    target->right = NULL;
-    target->colour = 'b';
-    target->data = data;
-}
 
 void setUp(void)
 {
@@ -73,7 +59,7 @@ void xtest_changeRootByRef()
     
     printf("test changeRootByRef()\n");
     printf("root is node %d with address %x\n",root->data,root);
-    changeRootByVal(&root,&node5);
+    changeRootByVal(root,&node5);
     printf("root is node %d with address %x\n",root->data,root);
 
 }

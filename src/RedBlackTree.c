@@ -1,4 +1,5 @@
 #include "RedBlackTree.h"
+#include "Rotation.h"
 #include "CException.h"
 #include "ErrorCode.h"
 #include <stdio.h>
@@ -17,12 +18,25 @@ void _addRedBlackTree(Node **nodePtr, Node *newNode)
             *nodePtr = newNode;
             return ;
         }
+
         
     if(newNode->data < (*nodePtr)->data)
-        (*nodePtr)->left = newNode ;
+        {
+            _addRedBlackTree(&(*nodePtr)->left,newNode);
+            if ((*nodePtr)->left->left != NULL)
+            {
+                if((*nodePtr)->left->colour == 'r' && (*nodePtr)->left->left->colour)
+                {    
+                    rightRotate(&(*nodePtr));
+                }   
+            } 
+        }
     else if (newNode->data > (*nodePtr)->data)
-        (*nodePtr)->right = newNode ;    
+        _addRedBlackTree(&(*nodePtr)->right,newNode);    
     else
         Throw(ERR_EQUIVALENT_NODE);
 
+   
+    
+        
 }

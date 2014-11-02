@@ -6,6 +6,9 @@
 void addRedBlackTree(Node **nodePtr, Node *newNode);
 void _addRedBlackTree(Node **nodePtr,Node *newNode);
 
+Node *delRedBlackTree(Node **nodePtr,Node *delNode);
+Node *_delRedBlackTree(Node **nodePtr,Node *delNode);
+
 int checkNotNull(Node **nodePtr,int type);
 int colourCheck(Node **nodePtr,int type);
 

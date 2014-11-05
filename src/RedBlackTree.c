@@ -94,13 +94,10 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
     Node *node = *nodePtr ;
     
     if ( delNode->data == (*nodePtr)->data )
-    {
-        printf("delNode->data == (*nodePtr)->data\n") ;
         *nodePtr = NULL ;
-    }
+    
     else if ( delNode->data < (*nodePtr)->data )
     {
-        printf("delNode->data < (*nodePtr)->data\n") ;
         if (checkNotNull(&(*nodePtr),Left))
             node = _delRedBlackTree(&(*nodePtr)->left,delNode);
         else
@@ -119,15 +116,12 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
     {
         if ( (!checkNotNull(&(*nodePtr),Left)) && (checkNotNull(&(*nodePtr),Right)) ) // Parent with missing left 
         {
-            printf("Parent with missing left") ;
-        
             if(colourCheck(&(*nodePtr),DEL_Right)) //check right child colour
                 colourFlip(&(*nodePtr),DEL_Right); //if right is black , change it to red and parent to black
-            else //right child is red , rotation needed
+            else //right child is red , left rotation needed
             {
-                if ( (checkNotNull(&(*nodePtr),RightRight)) &&  (checkNotNull(&(*nodePtr),RightLeft)) )
+                if (checkNotNull(&(*nodePtr),RightLeft))
                 {
-                    printf("right right and right left not null") ;
                     leftRotate(&(*nodePtr));
                     colourFlip(&(*nodePtr),DEL_LeftRight);
                 }
@@ -138,8 +132,14 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
         {
             if(colourCheck(&(*nodePtr),DEL_Left)) //check left child colour
                 colourFlip(&(*nodePtr),DEL_Left); // if left is black , change it to red and parent to black
-
-    
+            else //left child is red , right rotation needed
+            {
+                if (checkNotNull(&(*nodePtr),LeftRight) )
+                {
+                    rightRotate(&(*nodePtr));
+                    colourFlip(&(*nodePtr),DEL_RightLeft);
+                }
+            }
         }
     
     }
@@ -249,6 +249,8 @@ void colourFlip(Node **nodePtr,int type)
                             (*nodePtr)->colour ='b' ;
                             break ;
         case DEL_LeftRight: (*nodePtr)->left->right->colour = 'r';
+                            break ;
+        case DEL_RightLeft: (*nodePtr)->right->left->colour = 'r';
                             break ;
         default : break ;
     }

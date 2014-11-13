@@ -3,6 +3,7 @@
 
 typedef enum 
 { 
+    Self,
     Left,
     Right,
     LeftLeft,

@@ -78,6 +78,11 @@ void _addRedBlackTree(Node **nodePtr, Node *newNode)
 
 }
 
+
+
+
+
+
 Node *delRedBlackTree(Node **nodePtr,Node *delNode)
 {
     Node *node = _delRedBlackTree(nodePtr, delNode);
@@ -89,7 +94,7 @@ Node *delRedBlackTree(Node **nodePtr,Node *delNode)
     return node;
 }
 
-Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
+Node *_delRedBlackTreex(Node **nodePtr,Node *delNode)
 {
     Node *node = *nodePtr ;
     
@@ -146,16 +151,222 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
     return node ;
 }
 
+Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
+{
+    Node *node = *nodePtr ;
+    
+    
+    if ( delNode->data == (*nodePtr)->data )
+        *nodePtr = NULL ;
+    
+    else if ( delNode->data < (*nodePtr)->data )
+    {
+        if (checkNotNull(&(*nodePtr),Left))
+            node = _delRedBlackTree(&(*nodePtr)->left,delNode);
+        else
+            Throw(ERR_NODE_UNAVAILABLE);
+    }
+    
+    else if ( delNode->data > (*nodePtr)->data )
+    {
+        if (checkNotNull(&(*nodePtr),Right))
+            node = _delRedBlackTree(&(*nodePtr)->right,delNode);
+        else
+            Throw(ERR_NODE_UNAVAILABLE);
+    }
+   
+    if ( *nodePtr != NULL)
+    {
+        if (delNode->data < (*nodePtr)->data)
+        {
+            if (isDoubleBlack(&(*nodePtr)->left) && isBlack(&(*nodePtr)->left)) 
+            {
+                if(checkNotNull(&(*nodePtr),Right))
+                {   
+                    if(isRed(&(*nodePtr)->right))
+                        case3Handle_redSibling(&(*nodePtr),Right) ;
+                    
+                    else if(!(case1Handle_blackSibling_redNephew(&(*nodePtr),Right)))
+                        case2Handle_blackSibling_2blackNephew(&(*nodePtr),Right);
+                }
+            }
+    
+        }
+        else 
+        {
+            if (isDoubleBlack(&(*nodePtr)->right) && isBlack(&(*nodePtr)->right))
+            {
+                if(checkNotNull(&(*nodePtr),Left));
+                {   
+                    if(isRed(&(*nodePtr)->left))
+                        case3Handle_redSibling(&(*nodePtr),Left); 
+                    
+                    else if(!(case1Handle_blackSibling_redNephew(&(*nodePtr),Left)))
+                        case2Handle_blackSibling_2blackNephew(&(*nodePtr),Left);
+                }
+            } 
+        }
+    }
+    return node ; 
+}
 
 
+int case1Handle_blackSibling_redNephew(Node **nodePtr,int type)
+{
+    int colourChangeDecision = 0 ;
+    
+    if (type == Right)
+    {
+        if(checkNotNull(&(*nodePtr),RightRight)) 
+        {
+            if ( isRed(&(*nodePtr)->right->right))
+            {
+                leftRotate(&(*nodePtr));
+                colourChangeDecision = 1;
+            }    
+        }    
+            
+        else if (checkNotNull(&(*nodePtr),RightLeft))
+        {
+            if (isRed(&(*nodePtr)->right->left))
+            {    
+                rightLeftRotate(&(*nodePtr));
+                colourChangeDecision = 1;
+            }
+        }    
+    }
+    
+    else if (type == Left)
+    {
+        if(checkNotNull(&(*nodePtr),LeftLeft)) 
+        {
+            if ( isRed(&(*nodePtr)->left->left))
+            {
+                rightRotate(&(*nodePtr));
+                colourChangeDecision = 1;
+            }    
+        }    
+            
+        else if (checkNotNull(&(*nodePtr),LeftRight))
+        {
+            if (isRed(&(*nodePtr)->left->right))
+            {    
+                leftRightRotate(&(*nodePtr));
+                colourChangeDecision = 1;
+            }
+        }
+    }
+    
+    if (colourChangeDecision)
+    {   
+        if (type == Right)
+        {
+            changeColour(&(*nodePtr),(*nodePtr)->left->colour,0,Self); //New parent takes colour of previous left parents                   
+            changeColour(&(*nodePtr),'b','b',Left_Right);    //Force both child to black
+        }    
+        else if (type == Left)    
+        {    
+            changeColour(&(*nodePtr),(*nodePtr)->right->colour,0,Self); //New parent takes colour of previous right parents                   
+            changeColour(&(*nodePtr),'b','b',Left_Right);    //Force both child to black
+        
+        }
+    }
+    
+    return colourChangeDecision ;
+}
+
+void case2Handle_blackSibling_2blackNephew(Node **nodePtr,int type)
+{
+    
+    if (isRed(&(*nodePtr))) //parent is red
+        changeColour(&(*nodePtr),'b',0,Self); //parent to black     
+    else
+        changeColour(&(*nodePtr),'d',0,Self); //parent to double black
+    
+    if (type == Right)    
+        changeColour(&(*nodePtr),'r',0,Right); //Force right child to red
+    else if (type == Left)
+        changeColour(&(*nodePtr),'r',0,Left); //Force left child to red
+
+}
+
+void case3Handle_redSibling(Node **nodePtr,int type)
+{
+    if (type == Right) //Right not NULL
+    {
+        leftRotate(&(*nodePtr));
+        changeColour(&(*nodePtr),'r',0,Left); //Force left child to red first
+        if(!(case1Handle_blackSibling_redNephew(&(*nodePtr)->left,Right)))
+            case2Handle_blackSibling_2blackNephew(&(*nodePtr)->left,Right);
+    }
+
+    else if (type == Left)
+    {
+        rightRotate(&(*nodePtr));
+        changeColour(&(*nodePtr),'r',0,Right); //Force right child to red first
+        if(!(case1Handle_blackSibling_redNephew(&(*nodePtr)->right,Left)))
+            case2Handle_blackSibling_2blackNephew(&(*nodePtr)->right,Left);
+    
+    }
+
+}
 
 
+int isRed(Node **nodePtr)
+{
+    if (*nodePtr != NULL)
+    {
+        if ((*nodePtr)->colour == 'r')
+            return 1 ;
+    }
+    
+    return 0 ;
+}
 
+int isBlack(Node **nodePtr)
+{
+    if (*nodePtr != NULL)
+    {
+        if ((*nodePtr)->colour == 'b')
+            return 1 ;
+        else
+            return 0 ;
+    }
+    
+    return 1 ;
+}
 
+int isDoubleBlack(Node **nodePtr)
+{
+    if (*nodePtr != NULL)
+    {
+        if ((*nodePtr)->colour == 'd')
+            return 1 ;
+        else 
+            return 0 ;
+    }
+    
+    return 1 ;
+}
 
-
-
-
+void changeColour(Node **nodePtr,int colour1,int colour2,int type)
+{
+    Node *node1 = *nodePtr ;
+    
+    switch(type)
+    {
+        case Self   :       (*nodePtr)->colour = colour1 ;
+                            break ;
+        case Left   :       (*nodePtr)->left->colour = colour1 ;
+                            break ;
+        case Right  :       (*nodePtr)->right->colour = colour1 ;
+                            break ;
+        case Left_Right :   (*nodePtr)->left->colour = colour1 ;
+                            (*nodePtr)->right->colour = colour2 ;
+                            break ;
+        default :           break ;
+    }
+}
 
 
 
@@ -194,6 +405,30 @@ int checkNotNull(Node **nodePtr,int type)
 
     return result ;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 int colourCheck(Node **nodePtr,int type)
 {

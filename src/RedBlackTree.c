@@ -389,7 +389,7 @@ int isDoubleBlack(Node **nodePtr,Node *delNode)
 {
     if ( !checkNotNull(&(*nodePtr),Self) && isBlack(&delNode))
         return 1 ;
-    else if ( (*nodePtr)->colour == 'd' && ( isBlack(&delNode) || isRed(&delNode) ))
+    else if ( checkNotNull(&(*nodePtr),Self) && (*nodePtr)->colour == 'd' && ( isBlack(&delNode) || isRed(&delNode) ))
         return 1 ;
     else
         return 0;

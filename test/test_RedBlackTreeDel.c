@@ -46,7 +46,7 @@ void tearDown(void)
  *    1(b)
  *
  */
-void xtest_delRedBlackTree_remove_5_from_tree_with_root_1_should_throw_error()
+void test_delRedBlackTree_remove_5_from_tree_with_root_1_should_throw_error()
 {
     CEXCEPTION_T err;
     setNode(&node1, NULL, NULL, 'b');
@@ -76,7 +76,7 @@ void xtest_delRedBlackTree_remove_5_from_tree_with_root_1_should_throw_error()
  *    1(b)               NULL
  *
  */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_1_root_should_point_to_NULL()
+void test_delRedBlackTree_remove_1_from_tree_with_root_1_root_should_point_to_NULL()
 {
 
     setNode(&node1, NULL, NULL, 'b');
@@ -101,7 +101,7 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_1_root_should_point_to_N
  *     2(r)
  *
  */
-void xtest_delRedBlackTree_remove_2_from_tree_with_root_1_root_should_point_to_1()
+void test_delRedBlackTree_remove_2_from_tree_with_root_1_root_should_point_to_1()
 {
 
     setNode(&node2, NULL, NULL, 'r');
@@ -127,12 +127,12 @@ void xtest_delRedBlackTree_remove_2_from_tree_with_root_1_root_should_point_to_1
  * 1(r)  3(r)               3(r)
  *
  */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_red()
+void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_red()
 {
     setNode(&node3, NULL, NULL, 'r');
     setNode(&node1, NULL, NULL, 'r');
     setNode(&node2, &node1, &node3, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -154,12 +154,12 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_red()
  * 1(r)  3(r)             1(r)
  *
  */
-void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_red()
+void test_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_red()
 {
     setNode(&node3, NULL, NULL, 'r');
     setNode(&node1, NULL, NULL, 'r');
     setNode(&node2, &node1, &node3, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -182,12 +182,12 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_red()
  * 1(b)  3(b)               3(r)
  *
  */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_black()
+void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_black()
 {
     setNode(&node3, NULL, NULL, 'b');
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -208,12 +208,12 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_leftchild_1_black(
  * 1(b)  3(b)             1(r)
  *
  */
-void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_black()
+void test_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_black()
 {
     setNode(&node3, NULL, NULL, 'b');
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -235,14 +235,14 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_leftchild_1_black(
  *         /  \             \
  *       3(b) 6(b)         3(r)
  */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_5_6()
+void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_5_6()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
     setNode(&node6, NULL, NULL, 'b');
     setNode(&node5, &node3, &node6, 'r');
     setNode(&node2, &node1, &node5, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -263,19 +263,19 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_5_6()
  *          |     remove 3      |
  *         v      ----->        v
  *        2(b)                2(b)
- *        / \                /    \  
+ *        / \                /    \
  *    1(b)  5(r)           1(b)  5(b)
  *         /  \                    \
  *       3(b) 6(b)                6(r)
  */
-void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_node_1_3_5_6()
+void test_delRedBlackTree_remove_3_from_tree_with_root_2_and_node_1_3_5_6()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
     setNode(&node6, NULL, NULL, 'b');
     setNode(&node5, &node3, &node6, 'r');
     setNode(&node2, &node1, &node5, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -295,19 +295,19 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_2_and_node_1_3_5_6()
  *          |     remove 6      |
  *         v      ----->        v
  *        2(b)                2(b)
- *        / \                /    \  
+ *        / \                /    \
  *    1(b)  5(r)           1(b)  5(b)
  *         /  \                   /
  *       3(b) 6(b)              3(r)
  */
-void xtest_delRedBlackTree_remove_6_from_tree_with_root_2_and_node_1_3_5_6()
+void test_delRedBlackTree_remove_6_from_tree_with_root_2_and_node_1_3_5_6()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
     setNode(&node6, NULL, NULL, 'b');
     setNode(&node5, &node3, &node6, 'r');
     setNode(&node2, &node1, &node5, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -328,12 +328,12 @@ void xtest_delRedBlackTree_remove_6_from_tree_with_root_2_and_node_1_3_5_6()
  *           |     remove 7      |
  *           v      ----->       v
  *         5(b)                 2(b)
- *         / \                 /    \  
+ *         / \                 /    \
  *      2(r) 7(b)            1(b)   5(b)
  *     /  \                         /
  *  1(b) 3(b)                     3(r)
  */
-void xtest_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_3_7()
+void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_3_7()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
@@ -341,7 +341,7 @@ void xtest_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_3_7()
     setNode(&node2, &node1, &node3, 'r');
     setNode(&node5, &node2, &node7, 'b');
 
-   
+
     Node *root = &node5;
     Node *node;
 
@@ -361,12 +361,12 @@ void xtest_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_3_7()
  *           |     remove 1      |
  *           v      ----->       v
  *         5(b)                 5(b)
- *         / \                 /    \  
+ *         / \                 /    \
  *      2(r) 7(b)            2(b)   7(b)
  *     /  \                    \
  *  1(b) 3(b)                  3(r)
  */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_5_and_node_1_2_3_7()
+void test_delRedBlackTree_remove_1_from_tree_with_root_5_and_node_1_2_3_7()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
@@ -374,7 +374,7 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_5_and_node_1_2_3_7()
     setNode(&node2, &node1, &node3, 'r');
     setNode(&node5, &node2, &node7, 'b');
 
-   
+
     Node *root = &node5;
     Node *node;
 
@@ -394,12 +394,12 @@ void xtest_delRedBlackTree_remove_1_from_tree_with_root_5_and_node_1_2_3_7()
  *           |     remove 3      |
  *           v      ----->       v
  *         5(b)                 5(b)
- *         / \                 /    \  
+ *         / \                 /    \
  *      2(r) 7(b)            2(b)   7(b)
  *     /  \                  /
  *  1(b) 3(b)               1(r)
  */
-void xtest_delRedBlackTree_remove_3_from_tree_with_root_5_and_node_1_2_3_7()
+void test_delRedBlackTree_remove_3_from_tree_with_root_5_and_node_1_2_3_7()
 {
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node3, NULL, NULL, 'b');
@@ -407,7 +407,7 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_5_and_node_1_2_3_7()
     setNode(&node2, &node1, &node3, 'r');
     setNode(&node5, &node2, &node7, 'b');
 
-   
+
     Node *root = &node5;
     Node *node;
 
@@ -423,7 +423,175 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_5_and_node_1_2_3_7()
 }
 
 
+/*------------------------ 4 nodes ----------------------------*/
+/*------------------------ 4 nodes ----------------------------*/
+/*------------------------ 4 nodes ----------------------------*/
+/*------------------------ 4 nodes ----------------------------*/
 
+/*
+ *          root                         root
+ *           |          remove 1         |
+ *           v            ----->         v
+ *          4(b)                        4(b)
+ *         /    \                      /    \
+ *      2(r)     6(r)              2(b)     6(r)
+ *     /   \     /   \               \     /   \
+ *  1(b)  3(b) 5(b) 7(b)             3(r) 5(b) 7(b)
+ */
+void test_delRedBlackTree_remove_1_from_tree_with_root_4_and_node_1_2_3_5_6_7()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node5, NULL, NULL, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+
+    setNode(&node2, &node1, &node3, 'r');
+    setNode(&node6, &node5, &node7, 'r');
+    setNode(&node4, &node2, &node6, 'b');
+
+
+    Node *root = &node4;
+    Node *node;
+
+    node = delRedBlackTree(&root, &node1);
+
+    TEST_ASSERT_EQUAL_PTR(&node1,node);
+    TEST_ASSERT_EQUAL_PTR(&node4,root);
+
+    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
+
+    TEST_ASSERT_EQUAL_NODE(NULL,&node3,'b',&node2);
+    TEST_ASSERT_EQUAL_NODE(&node5,&node7,'r',&node6);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node3);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node7);
+}
+
+
+/*
+ *          root                         root
+ *           |          remove 3         |
+ *           v            ----->         v
+ *          4(b)                        4(b)
+ *         /    \                      /    \
+ *      2(r)     6(r)              2(b)     6(r)
+ *     /   \     /   \              /      /   \
+ *  1(b)  3(b) 5(b) 7(b)          1(r)   5(b) 7(b)
+ */
+void test_delRedBlackTree_remove_3_from_tree_with_root_4_and_node_1_2_3_5_6_7()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node5, NULL, NULL, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+
+    setNode(&node2, &node1, &node3, 'r');
+    setNode(&node6, &node5, &node7, 'r');
+    setNode(&node4, &node2, &node6, 'b');
+
+
+    Node *root = &node4;
+    Node *node;
+
+    node = delRedBlackTree(&root, &node3);
+
+    TEST_ASSERT_EQUAL_PTR(&node3,node);
+    TEST_ASSERT_EQUAL_PTR(&node4,root);
+
+    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
+
+    TEST_ASSERT_EQUAL_NODE(&node1,NULL,'b',&node2);
+    TEST_ASSERT_EQUAL_NODE(&node5,&node7,'r',&node6);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node1);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node7);
+}
+
+
+
+
+/*
+ *          root                         root
+ *           |          remove 5         |
+ *           v            ----->         v
+ *          4(b)                        4(b)
+ *         /    \                      /    \
+ *      2(r)     6(r)              2(b)     6(b)
+ *     /   \     /   \            /   \       \
+ *  1(b)  3(b) 5(b) 7(b)        1(b)  3(b)    7(r)
+ */
+void test_delRedBlackTree_remove_5_from_tree_with_root_4_and_node_1_2_3_5_6_7()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node5, NULL, NULL, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+
+    setNode(&node2, &node1, &node3, 'r');
+    setNode(&node6, &node5, &node7, 'r');
+    setNode(&node4, &node2, &node6, 'b');
+
+
+    Node *root = &node4;
+    Node *node;
+
+    node = delRedBlackTree(&root, &node5);
+
+    TEST_ASSERT_EQUAL_PTR(&node5,node);
+    TEST_ASSERT_EQUAL_PTR(&node4,root);
+
+    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
+
+    TEST_ASSERT_EQUAL_NODE(&node1,&node3,'r',&node2);
+    TEST_ASSERT_EQUAL_NODE(NULL,&node7,'b',&node6);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node7);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node3);
+}
+
+
+/*
+ *          root                         root
+ *           |          remove 7         |
+ *           v            ----->         v
+ *          4(b)                        4(b)
+ *         /    \                      /    \
+ *      2(r)     6(r)              2(b)     6(b)
+ *     /   \     /   \            /   \     /
+ *  1(b)  3(b) 5(b) 7(b)        1(b)  3(b) 5(r)
+ */
+void test_delRedBlackTree_remove_7_from_tree_with_root_4_and_node_1_2_3_5_6_7()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node5, NULL, NULL, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+
+    setNode(&node2, &node1, &node3, 'r');
+    setNode(&node6, &node5, &node7, 'r');
+    setNode(&node4, &node2, &node6, 'b');
+
+
+    Node *root = &node4;
+    Node *node;
+
+    node = delRedBlackTree(&root, &node7);
+
+    TEST_ASSERT_EQUAL_PTR(&node7,node);
+    TEST_ASSERT_EQUAL_PTR(&node4,root);
+
+    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
+
+    TEST_ASSERT_EQUAL_NODE(&node1,&node3,'r',&node2);
+    TEST_ASSERT_EQUAL_NODE(&node5,NULL,'b',&node6);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node5);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node3);
+}
 
 
 
@@ -457,13 +625,13 @@ void xtest_delRedBlackTree_remove_3_from_tree_with_root_5_and_node_1_2_3_7()
  */
 void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_4_5()
 {
-    
-    
+
+
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node5, NULL, NULL, 'r');
     setNode(&node4, NULL, &node5, 'b');
     setNode(&node2, &node1, &node4, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -489,13 +657,13 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_4_5()
  */
 void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_5_4()
 {
-    
-    
+
+
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node5, &node4, NULL, 'b');
     setNode(&node4, NULL, NULL, 'r');
     setNode(&node2, &node1, &node5, 'b');
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -510,13 +678,13 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_5_4()
 }
 
 /*
- *          root                root                     root 
+ *          root                root                     root
  *           |     remove 7      |       right rotate      |
  *           v      ----->       v        ----->           v
  *         5(b)                 5(b)                     2(b)
  *         / \                 /   \\                   /   \
  *      2(b) 7(b)            2(b)                    1(b)  5(b)
- *     /                     /       
+ *     /                     /
  *  1(r)                    1(r)
  */
 void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_2_1_7()
@@ -526,7 +694,7 @@ void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_2_1_7()
     setNode(&node2, &node1, NULL, 'b');
     setNode(&node5, &node2, &node7, 'b');
 
-   
+
     Node *root = &node5;
     Node *node;
 
@@ -542,13 +710,13 @@ void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_2_1_7()
 }
 
 /*
- *          root                root     left             root 
+ *          root                root     left             root
  *           |     remove 7      |       right rotate      |
  *           v      ----->       v        ----->           v
  *         5(b)                 5(b)                     2(b)
  *         / \                 /   \\                   /   \
  *      1(b) 7(b)            1(b)                    1(b)  5(b)
- *       \                    \      
+ *       \                    \
  *      2(r)                   2(r)
  */
 void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_7()
@@ -558,7 +726,7 @@ void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_7()
     setNode(&node1, NULL, &node2, 'b');
     setNode(&node5, &node1, &node7, 'b');
 
-   
+
     Node *root = &node5;
     Node *node;
 
@@ -580,14 +748,14 @@ void test_delRedBlackTree_remove_7_from_tree_with_root_5_and_node_1_2_7()
 /* ------------------------------case 2 -----------------------------*/
 
 /*
- *          root                root                 root 
+ *          root                root                 root
  *           |     remove 1      |                    |
  *           v      ----->       v        ----->      v
  *          2(r)                2(r)                 2(b)
  *         / \                 //   \                  \
  *      1(b) 3(b)                   3(b)               3(r)
- *                                 
- *                        
+ *
+ *
  */
 void test_delRedBlackTree_remove_1_from_tree_with_redroot_2_and_node_1_3()
 {
@@ -595,7 +763,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_redroot_2_and_node_1_3()
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'r');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -611,14 +779,14 @@ void test_delRedBlackTree_remove_1_from_tree_with_redroot_2_and_node_1_3()
 
 
 /*
- *          root                root                 root 
+ *          root                root                 root
  *           |     remove 1      |                    |
  *           v      ----->       v        ----->      v
  *          2(b)                2(b)                 2(d)
  *         / \                 //   \                  \
  *      1(b) 3(b)                   3(b)               3(r)
- *                                 
- *                        
+ *
+ *
  */
 void test_delRedBlackTree_remove_1_from_tree_with_blackroot_2_and_node_1_3()
 {
@@ -626,7 +794,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_blackroot_2_and_node_1_3()
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'b');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -641,14 +809,14 @@ void test_delRedBlackTree_remove_1_from_tree_with_blackroot_2_and_node_1_3()
 }
 
 /*
- *          root                root                 root 
+ *          root                root                 root
  *           |     remove 3      |                    |
  *           v      ----->       v        ----->      v
  *          2(b)                2(b)                 2(d)
  *         / \                 /   \\                /
  *      1(b) 3(b)            1(b)                   1(r)
- *                                 
- *                        
+ *
+ *
  */
 void test_delRedBlackTree_remove_3_from_tree_with_blackroot_2_and_node_3_1()
 {
@@ -656,7 +824,7 @@ void test_delRedBlackTree_remove_3_from_tree_with_blackroot_2_and_node_3_1()
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'b');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -671,14 +839,14 @@ void test_delRedBlackTree_remove_3_from_tree_with_blackroot_2_and_node_3_1()
 }
 
 /*
- *          root                root                 
- *           |     remove 3      |                    
- *           v      ----->       v            
- *          2(r)                2(b)                 
- *         / \                  /                 
- *      1(b) 3(b)             1(r)                    
- *                                 
- *                        
+ *          root                root
+ *           |     remove 3      |
+ *           v      ----->       v
+ *          2(r)                2(b)
+ *         / \                  /
+ *      1(b) 3(b)             1(r)
+ *
+ *
  */
 void test_delRedBlackTree_remove_3_from_tree_with_redroot_2_and_node_1_3()
 {
@@ -686,7 +854,7 @@ void test_delRedBlackTree_remove_3_from_tree_with_redroot_2_and_node_1_3()
     setNode(&node1, NULL, NULL, 'b');
     setNode(&node2, &node1, &node3, 'r');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -726,7 +894,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_4_5()
     setNode(&node4, &node3, &node5, 'r');
     setNode(&node2, &node1, &node4, 'b');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -764,7 +932,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_4_5_6()
     setNode(&node5, &node3, &node6, 'r');
     setNode(&node2, &node1, &node5, 'b');
 
-   
+
     Node *root = &node2;
     Node *node;
 
@@ -783,8 +951,8 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_4_5_6()
 
 
 
-/* 
- * 
+/*
+ *
  *            root                 root                      root
  *             /     remove 20      /     rotate left         /
  *            v      ----->        v      --------->         v
@@ -796,7 +964,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_4_5_6()
  */
 void test_delRedBlackTree_remove_20_from_tree_with_root_15_and_node_2_5_7_20()
 {
-   
+
     setNode(&node2, NULL, NULL, 'b');
     setNode(&node7, NULL, NULL, 'b');
     setNode(&node20, NULL, NULL, 'b');
@@ -804,24 +972,24 @@ void test_delRedBlackTree_remove_20_from_tree_with_root_15_and_node_2_5_7_20()
     setNode(&node15, &node5, &node20, 'b');
     Node *root = &node15;
     Node *node;
-    
-    
-    node = delRedBlackTree(&root, &node20);  
+
+
+    node = delRedBlackTree(&root, &node20);
     TEST_ASSERT_EQUAL(20 , node->data);
     TEST_ASSERT_EQUAL_NODE(NULL , NULL, 'b', &node2);
     TEST_ASSERT_EQUAL_NODE(NULL , NULL, 'r', &node7);
     TEST_ASSERT_EQUAL(root->data,5);
     TEST_ASSERT_EQUAL_NODE(&node7, NULL, 'b', &node15);
     TEST_ASSERT_EQUAL_NODE(&node2, &node15 , 'b', &node5);
-    
+
 }
 
 
 
 
 
-/* 
- * 
+/*
+ *
  *            root                 root                      root                      root
  *             /     remove 20      /       case3             /          case1          /
  *            v      ----->        v      --------->         v         ------->        v
@@ -836,7 +1004,7 @@ void test_delRedBlackTree_remove_20_from_tree_with_root_15_and_node_2_5_7_20()
  */
 void test_delRedBlackTree_remove_20_from_tree_with_root_15_root_and_node_2_5_6_7_20()
 {
-    
+
     setNode(&node2, NULL, NULL, 'b');
     setNode(&node6, NULL, NULL, 'r');
     setNode(&node7, &node6, NULL, 'b');
@@ -845,17 +1013,17 @@ void test_delRedBlackTree_remove_20_from_tree_with_root_15_root_and_node_2_5_6_7
     setNode(&node15, &node5, &node20, 'b');
     Node *root = &node15;
     Node *node;
-   
-    node = delRedBlackTree(&root, &node20);  
+
+    node = delRedBlackTree(&root, &node20);
     TEST_ASSERT_EQUAL(20 , node->data);
     TEST_ASSERT_EQUAL(root->data,5);
     TEST_ASSERT_EQUAL_NODE(NULL , NULL, 'b', &node6);
     TEST_ASSERT_EQUAL_NODE(&node6, &node15, 'r', &node7);
     TEST_ASSERT_EQUAL_NODE(&node2, &node7 , 'b', &node5);
     TEST_ASSERT_EQUAL_NODE(NULL , NULL, 'b', &node2);
-        
+
     TEST_ASSERT_EQUAL_NODE(NULL , NULL, 'b', &node15);
-    
+
 }
 
 
@@ -869,7 +1037,7 @@ void test_delRedBlackTree_remove_20_from_tree_with_root_15_root_and_node_2_5_6_7
  *           |                         |
  *           v      successor 2        v
  *          2(b)     ---->           NULL
- *         
+ *
  *
  */
 void test_removeNextLargerSuccessor_given_root_2_should_return_2()
@@ -877,9 +1045,9 @@ void test_removeNextLargerSuccessor_given_root_2_should_return_2()
     setNode(&node2, NULL, NULL, 'b');
     Node *root = &node2 ;
     Node *successor ;
-    
+
     successor = removeNextLargerSuccessor(&root);
- 
+
     TEST_ASSERT_EQUAL(NULL,root);
     TEST_ASSERT_EQUAL_PTR(&node2,successor);
     TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
@@ -891,8 +1059,8 @@ void test_removeNextLargerSuccessor_given_root_2_should_return_2()
  *           |                         |
  *           v      successor 1        v
  *          2(b)       ---->          2(b)
- *         /   
- *       1(b) 
+ *         /
+ *       1(b)
  */
 void test_removeNextLargerSuccessor_given_root_2_and_node_1_should_return_1()
 {
@@ -900,16 +1068,38 @@ void test_removeNextLargerSuccessor_given_root_2_and_node_1_should_return_1()
     setNode(&node2, &node1, NULL, 'b');
     Node *root = &node2 ;
     Node *successor ;
-    
+
     successor = removeNextLargerSuccessor(&root);
- 
+
     TEST_ASSERT_EQUAL(&node2,root);
     TEST_ASSERT_EQUAL_PTR(&node1,successor);
     TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
 
 }
 
+/*
+ *          root                      root
+ *           |                         |
+ *           v      successor 1        v
+ *          2(b)       ---->          2(b)
+ *         /  \                         \
+ *       1(b) 3(b)                      3(b)
+ */
+void test_removeNextLargerSuccessor_given_root_2_and_node_1_3_should_return_1()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node2, &node1, &node3, 'b');
+    Node *root = &node2 ;
+    Node *successor ;
 
+    successor = removeNextLargerSuccessor(&root);
+
+    TEST_ASSERT_EQUAL(&node2,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+    TEST_ASSERT_EQUAL_NODE(NULL, &node3, 'b', &node2);
+
+}
 
 /*
  *          root                      root
@@ -930,7 +1120,7 @@ void test_removeNextLargerSuccessor_given_root_3_and_node_1_2_should_return_1()
     Node *successor ;
 
     successor = removeNextLargerSuccessor(&root);
- 
+
     TEST_ASSERT_EQUAL(&node3,root);
     TEST_ASSERT_EQUAL_PTR(&node1,successor);
     TEST_ASSERT_EQUAL_NODE(&node2, NULL, 'b', &node3);
@@ -943,172 +1133,3 @@ void test_removeNextLargerSuccessor_given_root_3_and_node_1_2_should_return_1()
 
 
 
-/*------------------------ 4 nodes ----------------------------*/
-/*------------------------ 4 nodes ----------------------------*/
-/*------------------------ 4 nodes ----------------------------*/
-/*------------------------ 4 nodes ----------------------------*/
-
-/*
- *          root                         root
- *           |          remove 1         |
- *           v            ----->         v
- *          4(b)                        4(b) 
- *         /    \                      /    \ 
- *      2(r)     6(r)              2(b)     6(r) 
- *     /   \     /   \               \     /   \   
- *  1(b)  3(b) 5(b) 7(b)             3(r) 5(b) 7(b)
- */
-void xtest_delRedBlackTree_remove_1_from_tree_with_root_4_and_node_1_2_3_5_6_7()
-{
-    setNode(&node1, NULL, NULL, 'b');
-    setNode(&node3, NULL, NULL, 'b');
-    setNode(&node5, NULL, NULL, 'b');
-    setNode(&node7, NULL, NULL, 'b');
-    
-    setNode(&node2, &node1, &node3, 'r');
-    setNode(&node6, &node5, &node7, 'r');
-    setNode(&node4, &node2, &node6, 'b');
-
-   
-    Node *root = &node4;
-    Node *node;
-
-    node = delRedBlackTree(&root, &node1);
-
-    TEST_ASSERT_EQUAL_PTR(&node1,node);
-    TEST_ASSERT_EQUAL_PTR(&node4,root);
-
-    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
-    
-    TEST_ASSERT_EQUAL_NODE(NULL,&node3,'b',&node2);
-    TEST_ASSERT_EQUAL_NODE(&node5,&node7,'r',&node6);
-    
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node3);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node5);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node7);
-}
-
-
-/*
- *          root                         root
- *           |          remove 3         |
- *           v            ----->         v
- *          4(b)                        4(b) 
- *         /    \                      /    \ 
- *      2(r)     6(r)              2(b)     6(r) 
- *     /   \     /   \              /      /   \   
- *  1(b)  3(b) 5(b) 7(b)          1(r)   5(b) 7(b)
- */
-void xtest_delRedBlackTree_remove_3_from_tree_with_root_4_and_node_1_2_3_5_6_7()
-{
-    setNode(&node1, NULL, NULL, 'b');
-    setNode(&node3, NULL, NULL, 'b');
-    setNode(&node5, NULL, NULL, 'b');
-    setNode(&node7, NULL, NULL, 'b');
-    
-    setNode(&node2, &node1, &node3, 'r');
-    setNode(&node6, &node5, &node7, 'r');
-    setNode(&node4, &node2, &node6, 'b');
-
-   
-    Node *root = &node4;
-    Node *node;
-
-    node = delRedBlackTree(&root, &node3);
-
-    TEST_ASSERT_EQUAL_PTR(&node3,node);
-    TEST_ASSERT_EQUAL_PTR(&node4,root);
-
-    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
-    
-    TEST_ASSERT_EQUAL_NODE(&node1,NULL,'b',&node2);
-    TEST_ASSERT_EQUAL_NODE(&node5,&node7,'r',&node6);
-    
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node1);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node5);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node7);
-}
-
-
-
-
-/*
- *          root                         root
- *           |          remove 5         |
- *           v            ----->         v
- *          4(b)                        4(b) 
- *         /    \                      /    \ 
- *      2(r)     6(r)              2(b)     6(b) 
- *     /   \     /   \            /   \       \   
- *  1(b)  3(b) 5(b) 7(b)        1(b)  3(b)    7(r)
- */
-void xtest_delRedBlackTree_remove_5_from_tree_with_root_4_and_node_1_2_3_5_6_7()
-{
-    setNode(&node1, NULL, NULL, 'b');
-    setNode(&node3, NULL, NULL, 'b');
-    setNode(&node5, NULL, NULL, 'b');
-    setNode(&node7, NULL, NULL, 'b');
-    
-    setNode(&node2, &node1, &node3, 'r');
-    setNode(&node6, &node5, &node7, 'r');
-    setNode(&node4, &node2, &node6, 'b');
-
-   
-    Node *root = &node4;
-    Node *node;
-
-    node = delRedBlackTree(&root, &node5);
-
-    TEST_ASSERT_EQUAL_PTR(&node5,node);
-    TEST_ASSERT_EQUAL_PTR(&node4,root);
-
-    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
-    
-    TEST_ASSERT_EQUAL_NODE(&node1,&node3,'r',&node2);
-    TEST_ASSERT_EQUAL_NODE(NULL,&node7,'b',&node6);
-    
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node7);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node3);
-}
-
-
-/*
- *          root                         root
- *           |          remove 7         |
- *           v            ----->         v
- *          4(b)                        4(b) 
- *         /    \                      /    \ 
- *      2(r)     6(r)              2(b)     6(b) 
- *     /   \     /   \            /   \     /   
- *  1(b)  3(b) 5(b) 7(b)        1(b)  3(b) 5(r)
- */
-void xtest_delRedBlackTree_remove_7_from_tree_with_root_4_and_node_1_2_3_5_6_7()
-{
-    setNode(&node1, NULL, NULL, 'b');
-    setNode(&node3, NULL, NULL, 'b');
-    setNode(&node5, NULL, NULL, 'b');
-    setNode(&node7, NULL, NULL, 'b');
-    
-    setNode(&node2, &node1, &node3, 'r');
-    setNode(&node6, &node5, &node7, 'r');
-    setNode(&node4, &node2, &node6, 'b');
-
-   
-    Node *root = &node4;
-    Node *node;
-
-    node = delRedBlackTree(&root, &node7);
-
-    TEST_ASSERT_EQUAL_PTR(&node7,node);
-    TEST_ASSERT_EQUAL_PTR(&node4,root);
-
-    TEST_ASSERT_EQUAL_NODE(&node2,&node6, 'b', &node4);
-    
-    TEST_ASSERT_EQUAL_NODE(&node1,&node3,'r',&node2);
-    TEST_ASSERT_EQUAL_NODE(&node5,NULL,'b',&node6);
-    
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node5);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
-    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node3);
-}

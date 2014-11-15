@@ -8,10 +8,11 @@ void _addRedBlackTree(Node **nodePtr,Node *newNode);
 
 Node *delRedBlackTree(Node **nodePtr,Node *delNode);
 Node *_delRedBlackTree(Node **nodePtr,Node *delNode);
+Node *removeNextLargerSuccessor(Node **parentPtr);
 
 int isRed(Node **nodePtr);
 int isBlack(Node **nodePtr);
-int isDoubleBlack(Node **nodePtr);
+int isDoubleBlack(Node **nodePtr,Node *delNode);
 
 
 int checkNotNull(Node **nodePtr,int type);

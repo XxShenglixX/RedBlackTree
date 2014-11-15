@@ -794,7 +794,7 @@ void test_delRedBlackTree_remove_1_from_tree_with_root_2_and_node_1_3_4_5_6()
  *      /  \                /   \                            /
  *   2(b)  7(b)           2(b)  7(b)                       7(r)
  */
-void test_delRedBlackTree_3_node_remove_20_from_tree_with_root_15_root_should_point_to_5()
+void test_delRedBlackTree_remove_20_from_tree_with_root_15_and_node_2_5_7_20()
 {
    
     setNode(&node2, NULL, NULL, 'b');
@@ -834,7 +834,7 @@ void test_delRedBlackTree_3_node_remove_20_from_tree_with_root_15_root_should_po
  *      6(r)                 6(r)                       6(r)
  *
  */
-void test_delRedBlackTree_3_node_combination_test_remove_20_from_tree_with_root_15_root_should_point_to_5()
+void test_delRedBlackTree_remove_20_from_tree_with_root_15_root_and_node_2_5_6_7_20()
 {
     
     setNode(&node2, NULL, NULL, 'b');
@@ -860,13 +860,83 @@ void test_delRedBlackTree_3_node_combination_test_remove_20_from_tree_with_root_
 
 
 
+/*------------------------ Remove next larger successor ----------------------------*/
+/*------------------------ Remove next larger successor ----------------------------*/
+/*------------------------ Remove next larger successor ----------------------------*/
+/*------------------------ Remove next larger successor ----------------------------*/
+/*
+ *          root                      root
+ *           |                         |
+ *           v      successor 2        v
+ *          2(b)     ---->           NULL
+ *         
+ *
+ */
+void test_removeNextLargerSuccessor_given_root_2_should_return_2()
+{
+    setNode(&node2, NULL, NULL, 'b');
+    Node *root = &node2 ;
+    Node *successor ;
+    
+    successor = removeNextLargerSuccessor(&root);
+ 
+    TEST_ASSERT_EQUAL(NULL,root);
+    TEST_ASSERT_EQUAL_PTR(&node2,successor);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
+
+}
+
+/*
+ *          root                      root
+ *           |                         |
+ *           v      successor 1        v
+ *          2(b)       ---->          2(b)
+ *         /   
+ *       1(b) 
+ */
+void test_removeNextLargerSuccessor_given_root_2_and_node_1_should_return_1()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node2, &node1, NULL, 'b');
+    Node *root = &node2 ;
+    Node *successor ;
+    
+    successor = removeNextLargerSuccessor(&root);
+ 
+    TEST_ASSERT_EQUAL(&node2,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
+
+}
 
 
 
+/*
+ *          root                      root
+ *           |                         |
+ *           v      successor 1        v
+ *          3(b)       ---->          3(b)
+ *         /                          /
+ *       1(b)                       2(b)
+ *         \
+ *         2(r)
+ */
+void test_removeNextLargerSuccessor_given_root_3_and_node_1_2_should_return_1()
+{
+    setNode(&node1, NULL, &node2, 'b');
+    setNode(&node2, NULL, NULL, 'r');
+    setNode(&node3, &node1, NULL, 'b');
+    Node *root = &node3 ;
+    Node *successor ;
 
+    successor = removeNextLargerSuccessor(&root);
+ 
+    TEST_ASSERT_EQUAL(&node3,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+    TEST_ASSERT_EQUAL_NODE(&node2, NULL, 'b', &node3);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
 
-
-
+}
 
 
 

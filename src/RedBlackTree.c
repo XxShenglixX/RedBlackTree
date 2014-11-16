@@ -175,12 +175,51 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
             Throw(ERR_NODE_UNAVAILABLE);
     }
 
-    if ( *nodePtr != NULL)
+    
+    selectCase(&(*nodePtr),node);
+
+
+    return node ;
+}
+
+Node *removeNextLargerSuccessor(Node **parentPtr)
+{
+    Node *successor = *parentPtr, *storeRight;
+
+    
+    if (checkNotNull(&(*parentPtr),Left))
+            successor = removeNextLargerSuccessor(&(*parentPtr)->left);
+
+    else
     {
-        if (delNode->data < (*nodePtr)->data)
+        if (checkNotNull(&(*parentPtr),Right))
         {
-            if (isDoubleBlack(&(*nodePtr)->left,node) && isBlack(&(*nodePtr)->left))
-            {
+            storeRight = (*parentPtr)->right ;
+            (*parentPtr)->right = NULL ; //unlink parent with right child
+            *parentPtr = storeRight ; // replace parent with right child
+            changeColour(&(*parentPtr),'b',0,Self); // flip parent colour to black
+        }
+        else
+            *parentPtr = NULL ;
+
+    }
+
+    selectCase(&(*parentPtr),successor);
+
+    return successor ;
+}
+
+
+
+
+
+void selectCase(Node **nodePtr, Node *delNode)
+{
+     
+    if (checkNotNull (&(*nodePtr),Self))
+    {   
+        if (isDoubleBlack(&(*nodePtr)->left,delNode))
+        {
                 if(checkNotNull(&(*nodePtr),Right))
                 {
                     if(isRed(&(*nodePtr)->right))
@@ -188,27 +227,38 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
 
                     else if(!(case1Handle_blackSibling_redNephew(&(*nodePtr),Right)))
                         case2Handle_blackSibling_2blackNephew(&(*nodePtr),Right);
+                    
+                    
+                    if(checkNotNull(&(*nodePtr),Left))  //parent and left child colour are double black                 
+                    {
+                        if ( (*nodePtr)->colour == 'd' && (*nodePtr)->left->colour == 'd')  
+                            changeColour(&(*nodePtr),'b',0,Left); // switch child to black
+                    }
                 }
-            }
-
+ 
         }
-        else
+    
+        else if (isDoubleBlack(&(*nodePtr)->right,delNode))
         {
-            if (isDoubleBlack(&(*nodePtr)->right,node) && isBlack(&(*nodePtr)->right))
-            {
-                if(checkNotNull(&(*nodePtr),Left));
+            if(checkNotNull(&(*nodePtr),Left))
                 {
                     if(isRed(&(*nodePtr)->left))
                         case3Handle_redSibling(&(*nodePtr),Left);
 
                     else if(!(case1Handle_blackSibling_redNephew(&(*nodePtr),Left)))
                         case2Handle_blackSibling_2blackNephew(&(*nodePtr),Left);
+                    
+                    if(checkNotNull(&(*nodePtr),Right))  //parent and right child colour are double black                 
+                    {
+                        if ( (*nodePtr)->colour == 'd' && (*nodePtr)->right->colour == 'd')  
+                            changeColour(&(*nodePtr),'b',0,Right); // switch child to black
+                    }    
                 }
-            }
-        }
+        }   
     }
-    return node ;
 }
+
+
 
 
 int case1Handle_blackSibling_redNephew(Node **nodePtr,int type)
@@ -311,28 +361,6 @@ void case3Handle_redSibling(Node **nodePtr,int type)
 
 }
 
-Node *removeNextLargerSuccessor(Node **parentPtr)
-{
-    Node *successor = *parentPtr, *storeRight;
-
-    if (checkNotNull(&(*parentPtr),Left))
-            successor = removeNextLargerSuccessor(&(*parentPtr)->left);
-
-    else
-    {
-        if (checkNotNull(&(*parentPtr),Right))
-        {
-            *parentPtr = (*parentPtr)->right ; // replace parent with right child
-            changeColour(&(*parentPtr),'b',0,Self); // flip parent colour to black
-        }
-        else
-            *parentPtr = NULL ;
-
-    }
-
-
-    return successor ;
-}
 
 
 int isRed(Node **nodePtr)
@@ -358,9 +386,6 @@ int isBlack(Node **nodePtr)
 
     return 1 ;
 }
-
-
-
 
 
 /**
@@ -395,6 +420,9 @@ int isDoubleBlack(Node **nodePtr,Node *delNode)
         return 0;
 }
 
+
+
+
 void changeColour(Node **nodePtr,int colour1,int colour2,int type)
 {
     Node *node1 = *nodePtr ;
@@ -413,8 +441,6 @@ void changeColour(Node **nodePtr,int colour1,int colour2,int type)
         default :           break ;
     }
 }
-
-
 
 
 

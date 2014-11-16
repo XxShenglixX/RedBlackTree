@@ -6,7 +6,7 @@
 #include "CustomAssertions.h"
 #include "CException.h"
 #include "ErrorCode.h"
-Node node1,node2,node3,node4,node5,node6,node7,node8,node10,node11,node12,node13,node15,node18,node20,node22,node30,node40,node60;
+Node node1,node2,node3,node4,node5,node6,node7,node8,node10,node11,node12,node13,node15,node18,node19,node20,node22,node30,node40,node60;
 
 
 
@@ -26,6 +26,7 @@ void setUp(void)
     resetNode(&node13,13);
     resetNode(&node15,15);
     resetNode(&node18,18);
+    resetNode(&node18,19);
     resetNode(&node20,20);
     resetNode(&node22,22);
     resetNode(&node30,30);
@@ -1083,12 +1084,12 @@ void test_removeNextLargerSuccessor_given_root_2_and_node_1_should_return_1()
  *           v      successor 1        v
  *          2(b)       ---->          2(b)
  *         /  \                         \
- *       1(b) 3(b)                      3(b)
+ *       1(r) 3(r)                      3(r)
  */
 void test_removeNextLargerSuccessor_given_root_2_and_node_1_3_should_return_1()
 {
-    setNode(&node1, NULL, NULL, 'b');
-    setNode(&node3, NULL, NULL, 'b');
+    setNode(&node1, NULL, NULL, 'r');
+    setNode(&node3, NULL, NULL, 'r');
     setNode(&node2, &node1, &node3, 'b');
     Node *root = &node2 ;
     Node *successor ;
@@ -1098,38 +1099,144 @@ void test_removeNextLargerSuccessor_given_root_2_and_node_1_3_should_return_1()
     TEST_ASSERT_EQUAL(&node2,root);
     TEST_ASSERT_EQUAL_PTR(&node1,successor);
     TEST_ASSERT_EQUAL_NODE(NULL, &node3, 'b', &node2);
-
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node3);
 }
+
+
 
 /*
  *          root                      root
  *           |                         |
  *           v      successor 1        v
- *          3(b)       ---->          3(b)
- *         /                          /
- *       1(b)                       2(b)
- *         \
- *         2(r)
+ *          1(b)      ---->           2(b)
+ *            \
+ *            2(r)
  */
-void test_removeNextLargerSuccessor_given_root_3_and_node_1_2_should_return_1()
+void test_removeNextLargerSuccessor_given_root_1_and_node_2_should_return_1()
 {
     setNode(&node1, NULL, &node2, 'b');
     setNode(&node2, NULL, NULL, 'r');
-    setNode(&node3, &node1, NULL, 'b');
-    Node *root = &node3 ;
+    Node *root = &node1 ;
     Node *successor ;
 
     successor = removeNextLargerSuccessor(&root);
 
-    TEST_ASSERT_EQUAL(&node3,root);
+    TEST_ASSERT_EQUAL(&node2,root);
     TEST_ASSERT_EQUAL_PTR(&node1,successor);
-    TEST_ASSERT_EQUAL_NODE(&node2, NULL, 'b', &node3);
     TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node1);
+}
 
+/*
+ *          root                        root                          
+ *           |                           |                             
+ *           v        successor 1        v                            
+ *           12(b)       ---->          12(b)           
+ *          /    \                     /     \                      
+ *       5(b)    18(b)              5(b)     18(b)                 
+ *      /        /                          /                    
+ *   1(r)     13(r)                       13(r)             
+
+ */
+ 
+void test_removeNextLargerSuccessor_given_root_12_and_node_1_5_13_18_should_return_1()
+{
+    setNode(&node1, NULL, NULL, 'r');
+    setNode(&node13, NULL, NULL, 'r');
+    setNode(&node5, &node1, NULL,'b');
+    setNode(&node18, &node13,NULL,'b');
+    setNode(&node12, &node5, &node18, 'b');
+    
+    Node *root = &node12 ;
+    Node *successor ;
+
+    successor = removeNextLargerSuccessor(&root);
+
+    TEST_ASSERT_EQUAL(&node12,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node13);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(&node13, NULL, 'b', &node18);
+    TEST_ASSERT_EQUAL_NODE(&node5, &node18, 'b', &node12);
 }
 
 
+/*
+ *          root                        root                           root
+ *           |                           |                              ||
+ *           v        successor 1        v                              v
+ *           12(b)       ---->          12(b)           ---->        12(d)
+ *          /    \                    //     \                       /    \
+ *       5(b)    18(b)              5(d)     18(b)                 5(b)  18(r)
+ *      /  \     /   \                \     /    \                 \     /  \
+ *   1(b) 7(b) 13(b) 19(b)           7(r) 13(b) 19(b)             7(r) 13(b) 19(b)
+ */
+void test_removeNextLargerSuccessor_given_root_12_and_node_1_5_7_13_18_19_should_return_1()
+{
+    setNode(&node1, NULL, NULL, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+    setNode(&node13, NULL, NULL, 'b');
+    setNode(&node19, NULL, NULL, 'b');
+    setNode(&node5, &node1, &node7,'b');
+    setNode(&node18, &node13, &node19,'b');
+    setNode(&node12, &node5, &node18, 'b');
+    
+    Node *root = &node12 ;
+    Node *successor ;
+
+    successor = removeNextLargerSuccessor(&root);
+
+    TEST_ASSERT_EQUAL(&node12,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'r', &node7);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node13);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node19);
+    TEST_ASSERT_EQUAL_NODE(NULL, &node7, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(&node13, &node19, 'r', &node18);
+    TEST_ASSERT_EQUAL_NODE(&node5, &node18, 'd', &node12);
+}
 
 
+/*
+ *          root                        root                          
+ *           |                           |                             
+ *           v        successor 1        v                            
+ *           12(b)       ---->          12(b)           
+ *          /    \                     /     \                      
+ *       5(b)    18(b)              5(b)     18(b)                 
+ *      /  \     /   \              /  \     /    \                
+ *   1(b) 7(b) 13(b) 19(b)        2(b) 7(b) 13(b) 19(b)             
+ *     \
+ *     2(r)
+ */
+ 
+void test_removeNextLargerSuccessor_given_root_12_and_node_1_2_5_7_13_18_19_should_return_1()
+{
+    setNode(&node2,NULL, NULL, 'r');
+    setNode(&node1, NULL, &node2, 'b');
+    setNode(&node7, NULL, NULL, 'b');
+    setNode(&node13, NULL, NULL, 'b');
+    setNode(&node19, NULL, NULL, 'b');
+    setNode(&node5, &node1, &node7,'b');
+    setNode(&node18, &node13, &node19,'b');
+    setNode(&node12, &node5, &node18, 'b');
+    
+    Node *root = &node12 ;
+    Node *successor ;
 
+    successor = removeNextLargerSuccessor(&root);
 
+    TEST_ASSERT_EQUAL(&node12,root);
+    TEST_ASSERT_EQUAL_PTR(&node1,successor);
+
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node2);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node7);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node13);
+    TEST_ASSERT_EQUAL_NODE(NULL, NULL, 'b', &node19);
+    TEST_ASSERT_EQUAL_NODE(&node2, &node7, 'b', &node5);
+    TEST_ASSERT_EQUAL_NODE(&node13, &node19, 'b', &node18);
+    TEST_ASSERT_EQUAL_NODE(&node5, &node18, 'b', &node12);
+}

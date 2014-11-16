@@ -21,6 +21,8 @@ int colourCheck(Node **nodePtr,int type);
 
 void changeColour(Node **nodePtr,int colour1,int colour2,int type);
 
+void selectCase(Node **nodePtr, Node *delNode);
+
 int case1Handle_blackSibling_redNephew(Node **nodePtr,int type);
 void case2Handle_blackSibling_2blackNephew(Node **nodePtr,int type);
 void case3Handle_redSibling(Node **nodePtr,int type);

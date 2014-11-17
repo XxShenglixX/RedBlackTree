@@ -94,71 +94,29 @@ Node *delRedBlackTree(Node **nodePtr,Node *delNode)
     return node;
 }
 
-Node *_delRedBlackTreex(Node **nodePtr,Node *delNode)
-{
-    Node *node = *nodePtr ;
-
-    if ( delNode->data == (*nodePtr)->data )
-        *nodePtr = NULL ;
-
-    else if ( delNode->data < (*nodePtr)->data )
-    {
-        if (checkNotNull(&(*nodePtr),Left))
-            node = _delRedBlackTree(&(*nodePtr)->left,delNode);
-        else
-            Throw(ERR_NODE_UNAVAILABLE);
-    }
-
-    else if ( delNode->data > (*nodePtr)->data )
-    {
-        if (checkNotNull(&(*nodePtr),Right))
-            node = _delRedBlackTree(&(*nodePtr)->right,delNode);
-        else
-            Throw(ERR_NODE_UNAVAILABLE);
-    }
-
-    if ( *nodePtr != NULL)
-    {
-        if ( (!checkNotNull(&(*nodePtr),Left)) && (checkNotNull(&(*nodePtr),Right)) ) // Parent with missing left
-        {
-            if(colourCheck(&(*nodePtr),DEL_Right)) //check right child colour
-                colourFlip(&(*nodePtr),DEL_Right); //if right is black , change it to red and parent to black
-            else //right child is red , left rotation needed
-            {
-                if (checkNotNull(&(*nodePtr),RightLeft))
-                {
-                    leftRotate(&(*nodePtr));
-                    colourFlip(&(*nodePtr),DEL_LeftRight);
-                }
-            }
-        }
-
-        else if ( (checkNotNull(&(*nodePtr),Left)) && (!checkNotNull(&(*nodePtr),Right)) ) // Parent with missing right
-        {
-            if(colourCheck(&(*nodePtr),DEL_Left)) //check left child colour
-                colourFlip(&(*nodePtr),DEL_Left); // if left is black , change it to red and parent to black
-            else //left child is red , right rotation needed
-            {
-                if (checkNotNull(&(*nodePtr),LeftRight) )
-                {
-                    rightRotate(&(*nodePtr));
-                    colourFlip(&(*nodePtr),DEL_RightLeft);
-                }
-            }
-        }
-
-    }
-    return node ;
-}
 
 Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
 {
-    Node *node = *nodePtr ;
+    Node *node = *nodePtr, *tempNode;
 
 
     if ( delNode->data == (*nodePtr)->data )
-        *nodePtr = NULL ;
-
+    {    
+        if (!checkNotNull(&(*nodePtr),Left_Right))
+            *nodePtr = NULL ;
+        
+        else if (checkNotNull(&(*nodePtr),Right))
+        {   
+            if (checkNotNull(&(*nodePtr),Left)) // the node also have a left child
+                tempNode = (*nodePtr)->left;
+            
+            *nodePtr = removeNextLargerSuccessor(&(*nodePtr)->right);
+            (*nodePtr)->left = tempNode ;    
+        }    
+        else if (checkNotNull(&(*nodePtr),Left))     
+            *nodePtr = removeNextLargerSuccessor(&(*nodePtr));
+    }
+    
     else if ( delNode->data < (*nodePtr)->data )
     {
         if (checkNotNull(&(*nodePtr),Left))
@@ -175,7 +133,6 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
             Throw(ERR_NODE_UNAVAILABLE);
     }
 
-    
     selectCase(&(*nodePtr),node);
 
 
@@ -184,7 +141,7 @@ Node *_delRedBlackTree(Node **nodePtr,Node *delNode)
 
 Node *removeNextLargerSuccessor(Node **parentPtr)
 {
-    Node *successor = *parentPtr, *storeRight;
+    Node *successor = *parentPtr;
 
     
     if (checkNotNull(&(*parentPtr),Left))
@@ -194,9 +151,7 @@ Node *removeNextLargerSuccessor(Node **parentPtr)
     {
         if (checkNotNull(&(*parentPtr),Right))
         {
-            storeRight = (*parentPtr)->right ;
-            (*parentPtr)->right = NULL ; //unlink parent with right child
-            *parentPtr = storeRight ; // replace parent with right child
+            *parentPtr = (*parentPtr)->right ; // replace parent with right child
             changeColour(&(*parentPtr),'b',0,Self); // flip parent colour to black
         }
         else
@@ -215,7 +170,7 @@ Node *removeNextLargerSuccessor(Node **parentPtr)
 
 void selectCase(Node **nodePtr, Node *delNode)
 {
-     
+   
     if (checkNotNull (&(*nodePtr),Self))
     {   
         if (isDoubleBlack(&(*nodePtr)->left,delNode))
@@ -233,6 +188,7 @@ void selectCase(Node **nodePtr, Node *delNode)
                     {
                         if ( (*nodePtr)->colour == 'd' && (*nodePtr)->left->colour == 'd')  
                             changeColour(&(*nodePtr),'b',0,Left); // switch child to black
+                            
                     }
                 }
  
@@ -242,6 +198,7 @@ void selectCase(Node **nodePtr, Node *delNode)
         {
             if(checkNotNull(&(*nodePtr),Left))
                 {
+                    
                     if(isRed(&(*nodePtr)->left))
                         case3Handle_redSibling(&(*nodePtr),Left);
 
@@ -327,7 +284,6 @@ int case1Handle_blackSibling_redNephew(Node **nodePtr,int type)
 
 void case2Handle_blackSibling_2blackNephew(Node **nodePtr,int type)
 {
-
     if (isRed(&(*nodePtr))) //parent is red
         changeColour(&(*nodePtr),'b',0,Self); //parent to black
     else
@@ -346,6 +302,7 @@ void case3Handle_redSibling(Node **nodePtr,int type)
     {
         leftRotate(&(*nodePtr));
         changeColour(&(*nodePtr),'r',0,Left); //Force left child to red first
+        changeColour(&(*nodePtr),'b',0,Self); //Force parent to black
         if(!(case1Handle_blackSibling_redNephew(&(*nodePtr)->left,Right)))
             case2Handle_blackSibling_2blackNephew(&(*nodePtr)->left,Right);
     }
@@ -354,6 +311,7 @@ void case3Handle_redSibling(Node **nodePtr,int type)
     {
         rightRotate(&(*nodePtr));
         changeColour(&(*nodePtr),'r',0,Right); //Force right child to red first
+        changeColour(&(*nodePtr),'b',0,Self); //Force parent to black
         if(!(case1Handle_blackSibling_redNephew(&(*nodePtr)->right,Left)))
             case2Handle_blackSibling_2blackNephew(&(*nodePtr)->right,Left);
 
@@ -564,4 +522,105 @@ void colourFlip(Node **nodePtr,int type)
                             break ;
         default : break ;
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Node *_delRedBlackTreex(Node **nodePtr,Node *delNode)
+{
+    Node *node = *nodePtr ;
+
+    if ( delNode->data == (*nodePtr)->data )
+        *nodePtr = NULL ;
+
+    else if ( delNode->data < (*nodePtr)->data )
+    {
+        if (checkNotNull(&(*nodePtr),Left))
+            node = _delRedBlackTree(&(*nodePtr)->left,delNode);
+        else
+            Throw(ERR_NODE_UNAVAILABLE);
+    }
+
+    else if ( delNode->data > (*nodePtr)->data )
+    {
+        if (checkNotNull(&(*nodePtr),Right))
+            node = _delRedBlackTree(&(*nodePtr)->right,delNode);
+        else
+            Throw(ERR_NODE_UNAVAILABLE);
+    }
+
+    if ( *nodePtr != NULL)
+    {
+        if ( (!checkNotNull(&(*nodePtr),Left)) && (checkNotNull(&(*nodePtr),Right)) ) // Parent with missing left
+        {
+            if(colourCheck(&(*nodePtr),DEL_Right)) //check right child colour
+                colourFlip(&(*nodePtr),DEL_Right); //if right is black , change it to red and parent to black
+            else //right child is red , left rotation needed
+            {
+                if (checkNotNull(&(*nodePtr),RightLeft))
+                {
+                    leftRotate(&(*nodePtr));
+                    colourFlip(&(*nodePtr),DEL_LeftRight);
+                }
+            }
+        }
+
+        else if ( (checkNotNull(&(*nodePtr),Left)) && (!checkNotNull(&(*nodePtr),Right)) ) // Parent with missing right
+        {
+            if(colourCheck(&(*nodePtr),DEL_Left)) //check left child colour
+                colourFlip(&(*nodePtr),DEL_Left); // if left is black , change it to red and parent to black
+            else //left child is red , right rotation needed
+            {
+                if (checkNotNull(&(*nodePtr),LeftRight) )
+                {
+                    rightRotate(&(*nodePtr));
+                    colourFlip(&(*nodePtr),DEL_RightLeft);
+                }
+            }
+        }
+
+    }
+    return node ;
 }
